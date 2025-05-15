@@ -19,7 +19,6 @@ export class UsersController {
 
   @Get('filter')
   async filterUsers(
-    @Req() request: Request,
     @Query(
       'roles',
       new ParseArrayPipe({ items: String, separator: ',', optional: true })
