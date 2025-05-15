@@ -1,0 +1,57 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/client"
+}
+
+model User {
+  id          String    @id @default(uuid())
+  email       String    @unique
+  name        String?
+  lastLoginAt DateTime? @map("last_login_at")
+
+  memberships Membership[]
+  teamLinks   TeamUser[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Team {
+  id   String @id @default(uuid())
+  name String @unique
+
+  userLinks TeamUser[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model TeamUser {
+  userId String @map("user_id")
+  teamId String @map("team_id")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  team Team @relation(fields: [teamId], references: [id], onDelete: Cascade)
+
+  assignedAt DateTime @default(now())
+
+  @@id([userId, teamId])
+  @@index([teamId])
+}
+
+model Membership {
+  id      String  @id @default(uuid())
+  userId  String  @unique @map("user_id")
+  role    String  @default("VIEWER")
+  isGuest Boolean @default(false) @map("is_guest")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+} 
