@@ -148,7 +148,7 @@ We're excited to see what you build. Good luck and have fun!
 1. Clone the repository and navigate to the project folder:
 
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/d-wasilewski/people-page
    cd trial-day-exercise-main
    ```
 
@@ -200,10 +200,6 @@ We're excited to see what you build. Good luck and have fun!
 
 ### Known Limitations and Edge Cases
 
-- **Team Sorting**: When sorting by team names, users that belong to multiple teams are sorted based on their first team name alphabetically. A more sophisticated approach could be implemented with additional time.
-- **Filter Combinations**: Some complex combinations of filters (especially when combining team filters with other criteria) might exhibit edge cases where the query performance could be optimized further.
-- **Pagination with Changing Filters**: When changing filters, the pagination doesn't automatically reset to page 1, which could lead to empty result pages if the filtered result set is smaller than the current page offset.
-
-- **Mobile Responsiveness**: The interface is primarily optimized for desktop view. Mobile optimization could be enhanced with additional time.
-
-- **Search Performance**: The text search is implemented as a simple LIKE query which works well for the demo dataset but might need indexing improvements for production-scale data.
+- Some actions remove existing filters
+- Teams and roles sorting doesnt work correctly
+- Layout breaks when selecting multiple options
